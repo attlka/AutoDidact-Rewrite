@@ -5,6 +5,7 @@ import os
 import openai
 
 openai.api_key = ("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")
+client.run(os.getenv('Token'))
 
 #GPT3 Engine, Settings and Prompt Fragment
 response = openai.Completion.create(
@@ -46,7 +47,4 @@ async def on_message(message):
 		await message.channel.send('Hmm, Im not sure I quite understand')
 	else:
 		await message.channel.send(answer)
-
-			
-client.run(os.getenv('Token'))
 
