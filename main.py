@@ -4,7 +4,7 @@ import asyncio
 import os
 import openai
 
-openai.api_key = ("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")
+openai.api_key = ('gptkey')
 client.run(os.getenv('Token'))
 
 #GPT3 Engine, Settings and Prompt Fragment
