@@ -1,3 +1,4 @@
+from ast import AsyncFunctionDef
 import os
 import discord
 import asyncio
@@ -9,7 +10,6 @@ openai.api_key = ('gptkey')
 #Create a Discord bot that answers questions with GPT-3
 client = discord.Client()
 
-@asyncio.coroutine
 @client.event
 async def on_message(message):
 	if message.content.startswith('!ask'):
@@ -18,7 +18,6 @@ async def on_message(message):
 		response = openai.Completion.create(engine='text-davinci-001', prompt="You are a knowledgable speaker answering questions about Philosophy as a subject. You can only use information that can be found on the following website, The Wikipedia Page for Philosophy, to inform your answers: https://en.wikipedia.org/wiki/Philosophy. Please do not answer with information from other sources. + question\n", temperature=0.07, max_tokens=300)
 		await message.channel.send(response.choices[0]['text'])
 
-@asyncio.coroutine
 @client.event
 async def on_message(message):
 	if message.content.startswith('!help'):
