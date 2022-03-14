@@ -3,43 +3,37 @@ import discord
 import asyncio
 import os
 import openai
-
+my_secret = os.environ['gptkey']
 openai.api_key = ('gptkey')
-client.run(os.getenv('Token'))
 
-#GPT3 Engine, Settings and Prompt Fragment
-response = openai.Completion.create(
-  engine="davinci",
-  prompt="Answer the following question using answers from the following wiki: https://pixar.fandom.com/wiki/Lightning_McQueen\n\nQuestion: What are Lightning McQueen's sponsors?\n\nAnswer: Dinoco, Rust-eze, and Flo's V8 Cafe.\n\nQuestion:",
-  temperature=0.18,
-  max_tokens=63,
-  top_p=1,
-  frequency_penalty=0.68,
-  presence_penalty=0.52,
-  stop=["Question"]
-)
 client = discord.Client()
-my_secret = os.environ['Token']
 
 #Summons bot
-@client.event
-async def on_ready():
-	print('Autodidact on stand-by')
-
 @client.event
 async def on_message(message):
 		if message.author == client.user:
 				return
 
 		if message.content.startswith('Hey AutoDidact'):
-				await message.channel.send('Hello!')
+				await message.channel.send('AutoDidact on standby!')
 
-#Prevents bot from replying to self or responding to cross-chatter
 @client.event
 async def on_message(message):
 	if message.author == bot.user:
 		return
 
+		openai.api_key = os.getenv("gpt_key")
+
+		response = openai.Completion.create(
+  	engine="text-davinci-001",
+ 		prompt="You are a knowledgable speaker answering questions about Philosophy as a subject. You can only use information that can be found on the following website, The Wikipedia Page for Philosophy, to inform your answers: https://en.wikipedia.org/wiki/Philosophy. Please do not answer with information from other sources.\n",
+		temperature=0.07,
+		max_tokens=308,
+		top_p=1,
+		frequency_penalty=0.68,
+		presence_penalty=0.52,
+		stop=["Question"]
+)
 	user_message = message.content
 	answer = generate_answer(user_message)
 		
@@ -48,3 +42,4 @@ async def on_message(message):
 	else:
 		await message.channel.send(answer)
 
+client.run(os.getenv('Token'))
